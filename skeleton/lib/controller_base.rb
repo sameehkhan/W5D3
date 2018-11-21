@@ -1,7 +1,9 @@
 require 'active_support'
 require 'active_support/core_ext'
+require 'active_support/inflector'
 require 'erb'
 require_relative './session'
+require 'byebug'
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -44,10 +46,12 @@ class ControllerBase
   # use ERB and binding to evaluate templates
   # pass the rendered html to render_content
   def render(template_name)
-    dir_path = File.dirname(__FILE__)
-    template_path = File.join(
-    dir_path, "views", "#{template_name}.html.erb"
+    controller_name = (self.class).to_s.underscore
+    # debugger
+    # dir_path = File.dirname(__FILE__)
+    template_path = File.join("views/#{controller_name}", "#{template_name}.html.erb"
     )
+    # debugger
 
     template_code = File.read(template_path)
 
