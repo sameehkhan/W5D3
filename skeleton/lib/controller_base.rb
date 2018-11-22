@@ -26,6 +26,7 @@ class ControllerBase
     else
       @res.status = 302 
       @res["Location"] = url 
+      session.store_session(@res)
       @already_built_response = true
     end 
   end
@@ -39,6 +40,7 @@ class ControllerBase
     else
       @res.write(content)
       @res['Content-Type'] = content_type
+      session.store_session(@res)
       @already_built_response = true
     end 
   end
